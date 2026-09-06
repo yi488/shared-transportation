@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: shared-transportation
+  datasource:
+    url: jdbc:mariadb://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:shared_transportation}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: ${DB_USER:linche}
+    password: ${DB_PASSWORD:linche123}
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+jwt:
+  # 生产环境请务必替换为随机密钥（至少 32 字节）
+  secret: ${JWT_SECRET:linche-shared-transportation-secret-key-please-change-in-prod-2026}
+  # token 有效期（毫秒），默认 7 天
+  expiration: ${JWT_EXPIRATION:604800000}
+
+app:
+  # 车辆图片上传目录
+  upload-dir: ${UPLOAD_DIR:./uploads}
+
+server:
+  port: 8080
