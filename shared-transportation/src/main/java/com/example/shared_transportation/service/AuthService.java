@@ -45,13 +45,16 @@ public class AuthService {
         if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
             throw new BusinessException(40002, "手机号或密码错误");
         }
+        if ("BANNED".equals(user.getStatus())) {
+            throw new BusinessException(40300, "该账号已被封禁，请联系客服");
+        }
         return toAuthResponse(user);
     }
 
     private AuthResponse toAuthResponse(User user) {
-        String token = jwtUtil.generateToken(user.getId(), user.getPhone());
+        String token = jwtUtil.generateToken(user.getId(), user.getPhone(), user.getRole());
         UserView view = new UserView(
-                String.valueOf(user.getId()), user.getPhone(), user.getNickname());
+                String.valueOf(user.getId()), user.getPhone(), user.getNickname(), user.getRole());
         return new AuthResponse(token, view);
     }
 }

@@ -2,7 +2,7 @@ package com.example.shared_transportation.controller;
 
 import com.example.shared_transportation.common.ApiResponse;
 import com.example.shared_transportation.common.SecurityUtil;
-import com.example.shared_transportation.dto.MessageView;
+import com.example.shared_transportation.dto.PurchaseResult;
 import com.example.shared_transportation.dto.SubscriptionRequest;
 import com.example.shared_transportation.service.SubscriptionService;
 import jakarta.validation.Valid;
@@ -23,8 +23,8 @@ public class SubscriptionController {
     }
 
     @PostMapping
-    public ApiResponse<MessageView> purchase(Authentication authentication,
-                                             @Valid @RequestBody SubscriptionRequest request) {
+    public ApiResponse<PurchaseResult> purchase(Authentication authentication,
+                                                @Valid @RequestBody SubscriptionRequest request) {
         Long userId = SecurityUtil.currentUserId(authentication);
         return ApiResponse.ok(subscriptionService.purchase(userId, request.getPlan()));
     }

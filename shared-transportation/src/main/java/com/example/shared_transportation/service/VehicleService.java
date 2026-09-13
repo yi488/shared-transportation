@@ -31,16 +31,20 @@ public class VehicleService {
     }
 
     @Transactional(readOnly = true)
-    public List<VehicleView> listAvailable(String category) {
+    public List<VehicleView> listAvailable(String category, String stationId) {
         List<Vehicle> vehicles;
-        if (category == null || category.isBlank()) {
-            vehicles = vehicleRepository.findByStatusOrderByCreatedAtDesc("available");
-        } else {
+        if (stationId != null && !stationId.isBlank()) {
+            vehicles = vehicleRepository
+                    .findByStatusAndStationIdOrderByCreatedAtDesc("available", stationId);
+        } else if (category != null && !category.isBlank()) {
             vehicles = vehicleRepository
                     .findByStatusAndCategoryOrderByCreatedAtDesc("available", category);
+        } else {
+            vehicles = vehicleRepository.findByStatusOrderByCreatedAtDesc("available");
         }
         return vehicles.stream()
-                .map(v -> new VehicleView(v.getId(), v.getName(), v.getCategory(), v.getImageUrl()))
+                .map(v -> new VehicleView(v.getId(), v.getName(), v.getCategory(),
+                        v.getImageUrl(), v.getStationId()))
                 .toList();
     }
 
@@ -60,7 +64,7 @@ public class VehicleService {
 
     @Transactional
     public MyVehicleView create(Long userId, MultipartFile file, String name, String desc,
-                                String category) {
+                                String category, String stationId) {
         String imageUrl = null;
         if (file != null && !file.isEmpty()) {
             imageUrl = storeImage(file);
@@ -73,6 +77,7 @@ public class VehicleService {
         vehicle.setCategory(normalizeCategory(category));
         vehicle.setDescription(desc == null ? "" : desc.trim());
         vehicle.setImageUrl(imageUrl);
+        vehicle.setStationId(stationId);
         vehicle.setStatus("available");
         vehicleRepository.save(vehicle);
         return toMyVehicleView(vehicle);
@@ -148,6 +153,6 @@ public class VehicleService {
 
     private MyVehicleView toMyVehicleView(Vehicle v) {
         return new MyVehicleView(v.getId(), v.getName(), v.getDescription(),
-                v.getImageUrl(), v.getStatus());
+                v.getImageUrl(), v.getStatus(), v.getStationId());
     }
 }

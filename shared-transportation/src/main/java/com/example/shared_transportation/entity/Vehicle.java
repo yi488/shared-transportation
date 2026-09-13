@@ -37,6 +37,10 @@ public class Vehicle {
     @Column(name = "image_url", length = 255)
     private String imageUrl;
 
+    /** 停放站点 id（站点模式下车辆绑定站点） */
+    @Column(name = "station_id", length = 32)
+    private String stationId;
+
     @Column(nullable = false, length = 16)
     private String status;
 

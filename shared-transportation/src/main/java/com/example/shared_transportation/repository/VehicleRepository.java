@@ -11,5 +11,7 @@ public interface VehicleRepository extends JpaRepository<Vehicle, String> {
 
     List<Vehicle> findByStatusAndCategoryOrderByCreatedAtDesc(String status, String category);
 
+    List<Vehicle> findByStatusAndStationIdOrderByCreatedAtDesc(String status, String stationId);
+
     List<Vehicle> findByOwnerIdOrderByCreatedAtDesc(Long ownerId);
 }

@@ -41,4 +41,24 @@ public class BorrowRecord {
 
     @Column(name = "quota_used", nullable = false)
     private Integer quotaUsed;
+
+    /** 订单状态：BORROWING / RETURNED / REFUNDED */
+    @Column(nullable = false, length = 16)
+    private String status = "BORROWING";
+
+    /** 车主收益（租还结算后） */
+    @Column(name = "owner_income", precision = 10, scale = 2)
+    private BigDecimal ownerIncome;
+
+    /** 平台提成（租还结算后） */
+    @Column(name = "platform_income", precision = 10, scale = 2)
+    private BigDecimal platformIncome;
+
+    /** 借车时所在站点 */
+    @Column(name = "start_station_id", length = 32)
+    private String startStationId;
+
+    /** 还车时所在站点 */
+    @Column(name = "end_station_id", length = 32)
+    private String endStationId;
 }

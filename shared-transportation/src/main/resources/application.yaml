@@ -24,6 +24,24 @@ jwt:
   # token 有效期（毫秒），默认 7 天
   expiration: ${JWT_EXPIRATION:604800000}
 
+admin:
+  # 默认管理员账号（首次启动自动创建），生产环境请务必修改
+  phone: ${ADMIN_PHONE:13800000000}
+  password: ${ADMIN_PASSWORD:admin123}
+
+alipay:
+  # ===== 支付宝支付配置（app-id 留空时走「模拟支付」，便于开发联调）=====
+  # 应用 APPID（支付宝开放平台申请）
+  app-id: 9021000167691023 
+  private-key: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDOhgYxn9z/eK3mkM6OWhevY+eZZ7HhRau9v0AownUmclDyNRBLDNmG5hCaGrd+9n5ldjK0nYNX6ue6Nf9Mi1KmVe63gajvO903YYSce4pJH15Wy1E4J3kzZd+75Co4vLBb9FZ+V9f/GoGbUr7mmSOqknlmSG+TqF3FgxCqHGZrRD+2GA7nhXCMGUnE/eexv5uq9sAgWISy9SC4kj+C4S4IXMn0EGtXZ7qolKQoJ/Z0OuXDw0ryhPH7QasuwP2t/riNMRrgzQqLz19qpB56vS95w3cKh9JjiTTxUVUgSX6ceeJlxnl5QwNQF4V7lNh9tP2hXiusir4Uck7erMrFRyjXAgMBAAECggEBAK2ktIp+7nMCxbypnnLEP0vhxTYPoNlXGgqFRm2+6n8z+OldQmDH4hHxWJ4pvoUKvcWTdxizo16FjObdRdXXAtwGPpuecisL+3j4Dmb/3IqUzF5Pvu9nCRn1GwPA2Nsxk1sNerfqJhtA7x5omUgMFJfzZg1g9CeDlaxfAeD11gtzKLwR8656o6dP+9YWSW2ROBFESG/rW7hsb6n2A/jGO6cjhCpt15aTPMjy9ZDCIN2PxxBqhLUpw2nHLzQJ4TDpekPS/8dtCUOsC5OcFD93Znl0kqn68BZeB/ZUlzJyE9HtxFornxsJH5ft0K318UfT6oKfSLHpaSvm2B9OQmFcIgkCgYEA8Wa54Z4qJGSaLGzhamhfRy/elxJxUNF9p0Jl1sd21jpSvhbmiPGSzep8vGknZmPKoEPCOpR6q/OeHUTg8wCucTaeEYjt7Z6afRxPeoQNB1Vwnow+kNNtU0c3wWLrE+wkunIAoFIOIWd3Pt/T64A/hW/4xdm2n/v/lClcGa9AXT0CgYEA2wNV3wxrlJ7Sddxzxx1LIym2I5lhs4pPVq5UTHQs0Opn7sy9kjCiCrPmzjpQSrZk+qsiK25NlHL+BxJP7TDX+UNrFrZGpae4zTcnc3VeNYI3RtRdwNWdZse5UUC7w7Uy4eJG1r+JwlXVhN5Q/zZPJPSbLTQnZgojjgKIMnXtp6MCgYA1Fe4Sm4GQ9z6gPmFj0QgC05gTiM66gxcqzQMwNDUB71l6y/ZubxFljwdXN5ief5tzmvL/ht9jKPPAZAFD7wZthyFDoeUQuCwpDyy7OIbU8gkOFLE9kAEeqy6rrGEdxHRfO+q/VswctHAYt4gW5eESKwl+GN58WCJgJqhGTa/N0QKBgFZZb07cx8G2CMZ9X4x+yTQY6v4IKFQwUO2dGBF4sH7CHK4zPP7Ze9n6aiKfLS730MJgHL3A5IeF+w/wsWCUJGLbqOowfZQsl5kZiM1l1foE2CRt8HTqBAAU+MTHYABefaw/maxrojXjv6Z+PLMSx4uLgW8GJA6AKtp/txEmG8g/AoGAG8NkA8uAJ0onha9JhI2AbyzchjgJOqg6wjjoDOy6D8z4ALI1UOs1XAbFaX8gPtDhF7rUx405NwoZnxNwAGQybpf/f7oKjXSBMAhdy7aU6cvEl4pLajGn+XOd7UKjYgkrhzbJycpRtYEXFKJU6lO1j51eDdGrBtCk8UecdEcXUQw=
+  alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAm10FCZlJhlBGpkd1JDspZo7nkZjxVtJcLvcxxzzt7wfVFKX+nPmCUgqN8lfCKr2hr8dtlI5pY1eBTMm1qgqxFV3j1EsjTL78ssMcY4vy4uOy77ibM5k8KLW+rIzF9Vg1MSfim/qMn4+vP2bSYvfrUAv47RVp/AKc0IzbG8dPVqHK/XSh8BADYHA2UxZYb7vVxZWlEntIaSSKfk+jNd7Q+RdVbWII3dpqDnXg+jybvbXAXpQWRInTP55omjsah4dyDPWv8A3LgvThRmRV4RD1Q+ZPzkZBGf7Vksk3RHEovGcDE9f7m3fWpJs/iT5trwae1prRFWyzfWrpLVBmIhsaNQIDAQAB
+  # 网关：沙箱 https://openapi-sandbox.dl.alipaydev.com/gateway.do ｜ 正式 https://openapi.alipay.com/gateway.do
+  gateway: https://openapi-sandbox.dl.alipaydev.com/gateway.do
+  # 异步通知地址（需公网可访问）
+  notify-url: http://pd6e7c93.natappfree.cc/api/pay/notify  
+  # 同步返回地址（支付完成后跳回前端）
+  return-url: http://localhost:3000/
+
 app:
   # 车辆图片上传目录
   upload-dir: ${UPLOAD_DIR:./uploads}

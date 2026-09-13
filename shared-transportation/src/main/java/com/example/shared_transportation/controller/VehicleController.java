@@ -3,7 +3,7 @@ package com.example.shared_transportation.controller;
 import com.example.shared_transportation.common.ApiResponse;
 import com.example.shared_transportation.common.SecurityUtil;
 import com.example.shared_transportation.dto.BorrowRequest;
-import com.example.shared_transportation.dto.MessageView;
+import com.example.shared_transportation.dto.BorrowResult;
 import com.example.shared_transportation.dto.MyVehicleView;
 import com.example.shared_transportation.dto.ReturnRequest;
 import com.example.shared_transportation.dto.ReturnView;
@@ -35,8 +35,9 @@ public class VehicleController {
     }
 
     @GetMapping("/vehicles")
-    public ApiResponse<List<VehicleView>> list(@RequestParam(required = false) String category) {
-        return ApiResponse.ok(vehicleService.listAvailable(category));
+    public ApiResponse<List<VehicleView>> list(@RequestParam(required = false) String category,
+                                               @RequestParam(required = false) String stationId) {
+        return ApiResponse.ok(vehicleService.listAvailable(category, stationId));
     }
 
     @GetMapping("/vehicles/{id}")
@@ -45,16 +46,16 @@ public class VehicleController {
     }
 
     @PostMapping("/borrow")
-    public ApiResponse<MessageView> borrow(Authentication authentication,
+    public ApiResponse<BorrowResult> borrow(Authentication authentication,
                                            @Valid @RequestBody BorrowRequest request) {
         Long userId = SecurityUtil.currentUserId(authentication);
-        return ApiResponse.ok(borrowService.borrow(userId, request.getVehicleId()));
+        return ApiResponse.ok(borrowService.borrow(userId, request.getVehicleId(), request.getStationId()));
     }
 
     @PostMapping("/return")
     public ApiResponse<ReturnView> returnVehicle(Authentication authentication,
                                                  @Valid @RequestBody ReturnRequest request) {
         Long userId = SecurityUtil.currentUserId(authentication);
-        return ApiResponse.ok(borrowService.returnVehicle(userId, request.getBorrowId()));
+        return ApiResponse.ok(borrowService.returnVehicle(userId, request.getBorrowId(), request.getStationId()));
     }
 }
